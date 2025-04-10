@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 
-nav {
+header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
