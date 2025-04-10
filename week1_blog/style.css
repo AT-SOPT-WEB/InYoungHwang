@@ -25,7 +25,13 @@ main{
     padding: 100px 30px 30px 30px;
 }
 
-#intro{
+#contents{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+section{
     background-color: aliceblue;
     padding: 20px;
 }
@@ -69,3 +75,57 @@ main{
     grid-column: 4 / 5;
     grid-row: 3 / 5;
   }
+
+.card-container{
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    row-gap: 20px;
+    column-gap: 10px;
+}
+
+@media (max-width: 1200px) {
+    .card-container {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  @media (max-width: 1080px) {
+    .card-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 800px) {
+    .card-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 580px) {
+    .card-container {
+      grid-template-columns: 1fr;
+    }
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background-color: rgb(252, 251, 246);
+    width: 200px;
+    height: 300px;
+    gap: 5px;
+    border-radius: 8px;
+}
+
+.card-img{
+    object-fit: cover;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
