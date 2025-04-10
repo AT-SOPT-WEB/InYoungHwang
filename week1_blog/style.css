@@ -40,7 +40,6 @@ nav{
 nav > div {
     display: flex;
     flex-direction: column;
-    border : 1.5px dashed black;
     background-color: rgba(251, 238, 199, 0.367);
 }
 
@@ -48,13 +47,27 @@ nav > div > a {
     padding :12px 55px;
     text-decoration: none;
     color : inherit;
+    border-radius: 0;
+    display: block
 }
 
-nav > div > a:not(:last-child) {
-    border-bottom: dashed;
+nav > div > a:not(:last-child, :first-child) {
     text-decoration: none;
     color : inherit;
-    border-bottom : 1.5px dashed black;
+    border-right : 1.5px dashed black;
+    border-left : 1.5px dashed black;
+}
+
+nav > div > a:first-child {
+    border : 1.5px dashed black;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+nav > div > a:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border : 1.5px dashed black;
 }
 
 nav > div > a:hover {
