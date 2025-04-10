@@ -129,3 +129,8 @@ section{
     height: 100%;
     overflow: hidden;
 }
+
+.fa-solid.fa-heart:hover{
+    color: rgb(187, 1, 1);
+    cursor: pointer;
+}
