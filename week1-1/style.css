@@ -1,0 +1,39 @@
+body {
+    background-color: gainsboro;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+}
+
+header {
+    color: white;
+    background-color: blue;
+    text-align: center;
+}
+
+section {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+article {
+    background-color: white;
+    padding: 10px;
+}
+
+#intro {
+    flex: 2;
+}
+
+#todo{
+    flex: 1;
+}
+
+footer {
+    color: white;
+    background-color: blue;
+    padding : 10px;
+    text-align: center;
+}
