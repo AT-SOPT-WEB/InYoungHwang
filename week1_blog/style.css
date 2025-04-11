@@ -51,6 +51,10 @@ nav > div > a {
     display: block
 }
 
+nav > div > a:hover{
+  background-color: rgb(190, 216, 255);
+}
+
 nav > div > a:not(:last-child, :first-child) {
     text-decoration: none;
     color : inherit;
