@@ -1,0 +1,33 @@
+h1 {
+    color: red;
+}
+
+header {
+    color: green;
+    background-color: pink;
+}
+
+li:first-child{
+    color: red;
+}
+li:nth-child(2){
+    color: orange;
+}
+li:nth-child(3){
+    color: yellow;
+}
+li:nth-child(4){
+    color: green;
+}
+li:nth-child(5){
+    color: blue;
+}
+
+aside {
+    color: purple;
+}
+
+footer {
+    color: white;
+    background-color: gray;
+}
