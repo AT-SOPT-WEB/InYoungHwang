@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
 function GitSearch() {
-  const [searchInput, setSearchInput] = useState();
+  const [searchInput, setSearchInput] = useState('');
   const [userInfo, setUserInfo] = useState({ status: 'idle', data: null });
+  const [recentSearchedInput, setRecentSearchedInput] = useState([]);
 
   const getUserInfo = async (user) => {
     setUserInfo({ status: 'pending', data: null });
@@ -24,7 +25,13 @@ function GitSearch() {
   }
 
   const handleSearch = () => {
+    if (!searchInput) return;
+
     getUserInfo(searchInput);
+
+    const updated = [searchInput, ...recentSearchedInput.filter(item => item !== searchInput)];
+    setRecentSearches(updated);
+    setRecentSearchedInput(updated)
   }
 
   const handleGoToGithubProfile = () => {
@@ -35,6 +42,26 @@ function GitSearch() {
     setUserInfo({ status: 'idle', data: null });
   }
 
+  const getRecentSearches = ()  => {
+    const stored = localStorage.getItem('recentGitSearches'); 
+    const parsed = stored ? JSON.parse(stored) : [];
+    setRecentSearchedInput(parsed);
+  };
+
+  const setRecentSearches = (searches) => {
+    localStorage.setItem('recentGitSearches', JSON.stringify(searches));
+  };
+
+  const handleDeleteSearchInput = (searchInput) => {
+    const updated = recentSearchedInput.filter(item => item !== searchInput);
+    setRecentSearchedInput(updated);
+    setRecentSearches(updated);
+  };
+
+  useEffect(()=>{
+    getRecentSearches();
+  }, [])
+
   return (
     <div>
         <main css={mainStyle}>
@@ -44,6 +71,14 @@ function GitSearch() {
                     🔍
                 </button>
             </InputContainer>
+            <SearchInputContainer>
+                {recentSearchedInput.map((item, idx)=>(
+                    <span css={searchInputStyle} onClick={() => handleDeleteSearchInput(item)}>
+                        <span key={idx}>{item}</span>
+                        <span>X</span>
+                    </span>
+                ))}
+            </SearchInputContainer>
             {userInfo.status === 'resolved' && (
             <div css={profileStyle}>
                 <CloseButton onClick={()=>handleClose()}>X</CloseButton>
@@ -137,4 +172,24 @@ const followStyle = css`
     display: flex;
     gap: 20px;
     font-size: 1.2rem;
+`
+
+const SearchInputContainer = styled.div`
+    width: 400px;
+    display: flex;
+    margin: 12px 0px;
+    gap: 7px;
+    flex-wrap: wrap;
+`
+
+const searchInputStyle = css`
+    border-radius: 8px;
+    width: 100%;
+    width: fit-content;
+    padding: 4px 6px;
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+    border: 2px solid #55555556;
+    background-color: #ececec;
 `
