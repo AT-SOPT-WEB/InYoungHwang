@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react'
 import styled from '@emotion/styled'
-import GitSearch from './pages/gitSearch'
-import { BaseballGame } from './pages/BaseballGame'
+import GitSearch from './components/gitSearch'
+import { BaseballGame } from './components/BaseballGame'
 
 
 function App() {
