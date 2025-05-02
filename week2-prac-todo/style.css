@@ -1,0 +1,112 @@
+main{
+    display: flex;
+    flex-direction: column;
+    padding: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    color: rgb(23, 70, 82);
+    background-color: rgb(130, 175, 233);
+    border-radius: 8px;
+    padding: 5px 15px;
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.todo-filter-button-group{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-self: flex-start;
+}
+
+.dropdown{
+    position: relative;
+    display: inline-block;  
+}
+
+.dropdown-menu{
+    position: absolute;
+    z-index: 10;
+    display: none;
+    background-color: white;
+    list-style: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 100px;
+    padding: 0;
+    top: 16px;
+}
+
+.dropdown-menu > li {
+    text-align: center;
+    padding: 10px;
+    border: solid 0.5px rgb(226, 226, 226);
+    cursor: pointer;
+}
+
+.dropdown.active .dropdown-menu {
+    display: block;
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+    padding: 30px;
+    background-color: rgba(240, 240, 240, 0.722);
+    border-radius: 10px;
+}
+
+.todo-table, .todo-table th, .todo-table td {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+  }
+
+.todo-table > thead{
+    background-color: rgb(130, 175, 233);
+}
+
+.todo-table > thead > tr > th {
+    font-weight: 500;
+    font-size: 16px;
+    padding: 3px;
+    color: rgb(23, 70, 82);
+}
+
+.todo-table th:nth-child(1) { width: 70px; }     /* 체크박스 열 */
+.todo-table th:nth-child(2) { width: 100px; }     /* 중요도 */
+.todo-table th:nth-child(3) { width: 100px; }    /* 완료됨 */
+.todo-table th:nth-child(4) { width: auto; } 
+
+.todo-input-group{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 30px;
+}
+
+.todo-input{
+    flex: 1;    
+}
+
+.todo-control-button-group{
+    display: flex;
+    align-self: flex-end;
+    gap: 5px;
+}
+
+.todo-list > tr > td {
+    text-align: center;
+    white-space: nowrap;
+    padding: 8px;
+    background-color: rgb(250, 250, 250);
+}
