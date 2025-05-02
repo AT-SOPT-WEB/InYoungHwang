@@ -1,12 +1,12 @@
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 import { useState } from 'react';
+import styled from '@emotion/styled';
 
 function GitSearch() {
+  const [searchInput, setSearchInput] = useState();
   const [userInfo, setUserInfo] = useState({ status: 'idle', data: null });
 
-  // 사용자 정보를 가져오는 함수예요.
-  // 매개변수 user는 사용자의 깃허브 아이디입니다.
-  // 예시: getUserInfo('m2na7')
-  // 함수에 매개변수를 넣어서 호출하면? userInfo의 상태(userInfo.status, userInfo.data)가 변경됩니다.
   const getUserInfo = async (user) => {
     setUserInfo({ status: 'pending', data: null });
     try {
@@ -19,52 +19,122 @@ function GitSearch() {
     }
   };
 
-  // 개발자도구의 콘솔창에서 userInfo 데이터 확인 가능해요.
-  // 콘솔창에서 데이터를 확인해보세요.
-  console.log(userInfo);
+  const handleSearchInputChange = (e) => {
+    setSearchInput(e.target.value);
+  }
 
-  // userInfo 는 총 2개의 값을 포함하고 있어요.
-  // 1. data : 데이터를 가져오는 상태
-  // 2. status : 데이터
-  //    - status 는 3개의 값을 가질 수 있어요.
-  //      (1) idle : 데이터를 가져오지 않은 상태
-  //      (2) pending : 데이터를 가져오는 중
-  //      (3) resolved : 데이터를 가져오는 완료
-  //      (4) rejected : 데이터를 가져오는 중 에러 발생
-  //       심화과제에서는 pending, rejected 상태도 고려해야 해요.
+  const handleSearch = () => {
+    getUserInfo(searchInput);
+  }
 
-  // userInfo.status, userInfo.data 를 통해 접근 가능하겠죠?
-  // userInfo.status 는 데이터를 가져오는 상태를 확인할 수 있어요.
-  // console.log(userInfo.status) 와 같이 접근 가능해요.
+  const handleGoToGithubProfile = () => {
+    window.open(userInfo.data.html_url, '_blank');
+  }
 
-  // userInfo.data 는 말그대로 과제에서 사용자 정보를 표시하기 위한 값이에요.
-  // console.log(userInfo.data) 와 같이 접근 가능해요.
+  const handleClose = () => {
+    setUserInfo({ status: 'idle', data: null });
+  }
 
   return (
     <div>
-      {/* getUserInfo 함수안에 본인의 깃허브 아이디를 넣어서 확인해보세요! */}
-      <button onClick={() => getUserInfo('m2na7')}>
-        이 버튼을 누르면 사용자 정보를 가져옵니다.
-      </button>
-
-      {/* 기본과제에서 userInfo.status는 'resolved' 상태일 때만 아래와 같이 고려하면 됩니다. */}
-      {/* 조건부 렌더링을 통해 resolved 상태 즉, 검색 결과 데이터가 있는 경우에 결과를 표시하는겁니다. */}
-      {userInfo.status === 'resolved' && (
-        <div>
-          <img src={userInfo.data.avatar_url} />
-          <p>{userInfo.data.name}</p>
-          <p>한 줄소개: {userInfo.data.bio}</p>
-          <p>팔로워: {userInfo.data.followers}</p>
-          <p>팔로잉: {userInfo.data.following}</p>
-
-          <p>
-            깃허브 프로필 링크:
-            <a href={userInfo.data.html_url}>{userInfo.data.html_url}</a>
-          </p>
-        </div>
-      )}
+        <main css={mainStyle}>
+            <InputContainer>
+                <input placeholder="아이디로 Github 프로필을 검색해보세요" onChange={(e) => handleSearchInputChange(e)} css={inputStyle} />
+                <button onClick={() => handleSearch()} css={buttonStyle}>
+                    🔍
+                </button>
+            </InputContainer>
+            {userInfo.status === 'resolved' && (
+            <div css={profileStyle}>
+                <CloseButton onClick={()=>handleClose()}>X</CloseButton>
+                <img onClick={handleGoToGithubProfile} src={userInfo.data.avatar_url} />
+                <p onClick={handleGoToGithubProfile} css={nameStyle}>{userInfo.data.name}</p>
+                {userInfo.data.bio?
+                    <p>{userInfo.data.bio}</p> :
+                    <p>no bio</p>
+                }
+                <div css={followStyle}>
+                    <p>Followers : {userInfo.data.followers}</p>
+                    <p>Following : {userInfo.data.following}</p>
+                </div>
+            </div>
+        )}
+      </main>
     </div>
   );
 }
 
 export default GitSearch;
+
+const mainStyle = css`
+    display: flex;
+    flex-direction: column;
+`
+const InputContainer = styled.div`
+    display: flex;
+`
+
+const inputStyle = css`
+    padding: 10px;
+    margin-right: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 400px;
+    font-size: 0.8rem;
+`;
+
+const buttonStyle = css`
+    padding: 8px 12px;
+    background-color: #333;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+`;
+
+const profileStyle = css`
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px;
+    background-color: #d9f9eaa2;
+    border-radius: 8px;
+    font-weight: 600;
+
+    img {
+    width: 160px;
+    border-radius: 50%;
+    cursor: pointer;
+    }
+`;
+
+const CloseButton = styled.button`
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    padding: 10px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1); 
+    width: 35px;
+    height: 35px; 
+`
+
+const nameStyle = css`
+    font-size: 1.5rem;
+    cursor: pointer;
+`
+
+const followStyle = css`
+    display: flex;
+    gap: 20px;
+    font-size: 1.2rem;
+`

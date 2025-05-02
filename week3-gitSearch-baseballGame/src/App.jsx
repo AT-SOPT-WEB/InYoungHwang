@@ -40,7 +40,7 @@ const Container = styled.div`
 const Header = styled.header`
   text-align: center;
   margin-bottom: 16px;
-  background-color: aliceblue;
+  background-color: #adddc3b4;
   width: 100%;
   padding: 50px;
 `
