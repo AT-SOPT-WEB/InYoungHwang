@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const BasicButton = styled.button`
+export const BasicButton = styled.button<{ active: boolean }>`
   padding: 10px 16px;
   background-color: lightblue;
   color: white;
@@ -8,8 +8,12 @@ export const BasicButton = styled.button`
   border-radius: 6px;
   cursor: pointer;
   &:hover {
-    background-color: blue;
+    background-color: ${({ active }) => (active ? 'blue' : '#ccc')};
   }
+
+  cursor: ${({ active }) => (active ? 'pointer' : 'not-allowed')};
+  opacity: ${({ active }) => (active ? 1 : 0.6)};
+  pointer-events: ${({ active }) => (active ? 'auto' : 'none')};
 `
 
 export const NavigateButton = styled.div`
