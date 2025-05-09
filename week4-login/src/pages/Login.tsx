@@ -1,8 +1,29 @@
 import styled from '@emotion/styled';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BasicButton, NavigateButton } from '../Style/Button';
+import { fetchLogin } from '../apis/Login';
+import { useInput } from '../hooks/useInput';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+    const navigate = useNavigate();
+    const loginId = useInput('');
+    const password = useInput('');
+
+    const handleLogin = () => {
+        const login = async () => {
+            try{
+                const result = await fetchLogin(loginId.value, password.value);
+                localStorage.setItem("id", result.data.userId);
+                navigate('/myPage');
+            } catch (e) {
+                console.log(e);
+                alert("다시 시도해주세요");
+            }
+        }
+        login();
+    }
+
   return (
     <>
       <Container>
@@ -10,15 +31,15 @@ export const Login = () => {
         <Form>
             <InputContainer>
                 <Label>아이디</Label>
-                <Input placeholder='아이디' />
+                <Input type="text" placeholder='아이디' {...loginId}/>
             </InputContainer>
             <InputContainer>
                 <Label>비밀번호</Label>
-                <Input placeholder='비밀번호'/>
+                <Input type="text" placeholder='비밀번호' {...password} />
             </InputContainer>
-            <BasicButton>로그인</BasicButton>
+            <BasicButton onClick={()=>handleLogin()}>로그인</BasicButton>
         </Form>
-        <NavigateButton>회원가입</NavigateButton>
+        <NavigateButton onClick={()=>'/signUp'}>회원가입</NavigateButton>
       </Container>
     </>
   )
