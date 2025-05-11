@@ -110,6 +110,7 @@ const Container = styled.div`
     gap: 5px;
     justify-content: center;
     align-items: center;
+    padding: 100px;
 `;
 
 const Form = styled.div`

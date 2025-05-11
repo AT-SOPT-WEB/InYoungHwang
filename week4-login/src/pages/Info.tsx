@@ -6,17 +6,16 @@ import { patchNickname } from '../apis/auth';
 
 export const Info = () => {
   const nicknameInput = useInput('');
-  
-  const updateNickname = async () => {
-    try {
-      const result = patchNickname(nicknameInput.value);
-      console.log(result);
-    } catch (e: any) {
-      alert(e.message);
-    }
-  }
 
   const handleSubmit = () => {
+    const updateNickname = async () => {
+      try {
+        const result = patchNickname(nicknameInput.value);
+        console.log(result);
+      } catch (e: any) {
+        alert(e.message);
+      }
+    }
     updateNickname();
   }
 
